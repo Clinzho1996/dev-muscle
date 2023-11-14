@@ -3,6 +3,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   Age,
+  Details,
   ForgotPassword,
   Goal,
   Height,
@@ -45,6 +46,7 @@ const AppStack = () => {
       <Stack.Screen name="Weight" component={Weight} />
       <Stack.Screen name="Onboarding-Four" component={OnboardingFour} />
       <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
 };

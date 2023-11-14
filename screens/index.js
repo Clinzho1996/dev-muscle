@@ -16,8 +16,10 @@ import Height from './Height';
 import Weight from './Weight';
 import Level from './Level';
 import OnboardingFour from './OnboardingFour';
+import Details from './Details';
 
 export {
+  Details,
   Age,
   Login,
   Main,

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/react-in-jsx-scope */
 
 import {
   Dimensions,
@@ -10,17 +10,16 @@ import {
   ScrollView,
   ImageBackground,
   TouchableOpacity,
-  useWindowDimensions,
 } from 'react-native';
-import React, {useState} from 'react';
-import {SceneMap, TabView} from 'react-native-tab-view';
+import StatusBarHeader from '../components/StatusBar';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
+      <StatusBarHeader />
       <View style={styles.greeting}>
         <Text style={styles.name}>Hello Clinton,</Text>
         <Text style={styles.subgreet}>Good morning</Text>
@@ -32,7 +31,7 @@ const Home = () => {
             <Text style={styles.date}>Tues 14 Nov</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Details')}>
           <ImageBackground
             source={require('../assets/bg7.png')}
             imageStyle={{
@@ -213,6 +212,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#fff',
     fontWeight: '600',
+    paddingRight: 50,
   },
   time: {
     fontSize: 13,
