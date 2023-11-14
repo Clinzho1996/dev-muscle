@@ -21,6 +21,12 @@ const height = Dimensions.get('window').height;
 const Register = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordTwo, setShowPasswordTwo] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRegister = () => {
+    setIsLoading(true);
+    navigation.navigate('Main');
+  };
   return (
     <ScrollView style={styles.card}>
       <StatusBarHeader />
@@ -129,10 +135,16 @@ const Register = ({navigation}) => {
         <TouchableOpacity style={styles.btnBack}>
           <Icon name="logo-google" size={25} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>
-            Sign up <Icon name="caret-forward" color="#000" />
-          </Text>
+        <TouchableOpacity style={styles.btn} onPress={handleRegister}>
+          <View>
+            {isLoading ? (
+              <Text style={styles.btnText}>Loading...</Text>
+            ) : (
+              <Text style={styles.btnText}>
+                Signup <Icon name="caret-forward" color="#000" />
+              </Text>
+            )}
+          </View>
         </TouchableOpacity>
       </View>
     </ScrollView>

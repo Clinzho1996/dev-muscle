@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: '#D0FD3E',
-    fontSize: 65,
+    fontSize: 60,
     fontFamily: 'integralcf-heavy',
     marginTop: 40,
   },

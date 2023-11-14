@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+
 import {
   StyleSheet,
   Text,
@@ -32,9 +34,11 @@ const Weight = ({navigation}) => {
           //   onValueChange={number => console.log(number)}
           //   onValueChangeEnd={number => console.log(number)}
           unit="kg"
-          valueTextStyle={{color: '#D0FD3E'}}
-          unitTextStyle={{color: '#D0FD3E'}}
+          valueTextStyle={{color: '#fff'}}
+          unitTextStyle={{color: '#fff'}}
           indicatorColor="#D0FD3E"
+          shortStepColor="#D0FD3E"
+          longStepColor="#D0FD3E"
         />
       </View>
 
