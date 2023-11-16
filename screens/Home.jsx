@@ -49,7 +49,7 @@ const Home = ({navigation}) => {
         </TouchableOpacity>
         <View style={styles.work}>
           <Text style={styles.day}>Workout Categories</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Category')}>
             <Text style={styles.date}>See All</Text>
           </TouchableOpacity>
         </View>

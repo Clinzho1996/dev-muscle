@@ -17,8 +17,16 @@ import Weight from './Weight';
 import Level from './Level';
 import OnboardingFour from './OnboardingFour';
 import Details from './Details';
+import Category from './Category';
+import Subscribe from './Subscribe';
+import Trainers from './Trainers';
+import TrainerDetails from './TrainerDetails';
 
 export {
+  TrainerDetails,
+  Trainers,
+  Subscribe,
+  Category,
   Details,
   Age,
   Login,

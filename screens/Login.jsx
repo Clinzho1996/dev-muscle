@@ -9,18 +9,57 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
+  Alert,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StatusBarHeader from '../components/StatusBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const Login = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordTwo, setShowPasswordTwo] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      console.log('Name and password are required.');
+      Alert.alert('Error', 'Name and email are required.');
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        'https://spendtrack.wtglaundrymanagement.com/api/auth/login',
+        {
+          email: email,
+          password: password,
+        },
+      );
+      console.log('Login: ', response.data);
+
+      // Check if response.data.id exists before setting it in AsyncStorage
+      if (response.data.user.id) {
+        await AsyncStorage.setItem('userId', String(response.data.user.id));
+      }
+
+      await AsyncStorage.setItem('userToken', response.data.token);
+      navigation.navigate('Main');
+    } catch (error) {
+      console.log('Error:', error);
+      Alert.alert('Error', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <ScrollView style={styles.card}>
       <StatusBarHeader />
@@ -59,6 +98,7 @@ const Login = ({navigation}) => {
             <TextInput
               placeholder="Email"
               placeholderTextColor="#8F94A3"
+              onChangeText={text => setEmail(text)}
               style={{color: '#8F94A3', fontFamily: 'Inter-Bold', fontSize: 16}}
             />
           </View>
@@ -81,6 +121,7 @@ const Login = ({navigation}) => {
               placeholder="Your Password"
               placeholderTextColor="#8F94A3"
               secureTextEntry={!showPassword}
+              onChangeText={text => setPassword(text)}
               style={{color: '#8F94A3', fontSize: 16}}
             />
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
@@ -108,12 +149,17 @@ const Login = ({navigation}) => {
         <TouchableOpacity style={styles.btnBack}>
           <Icon name="logo-google" size={25} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate('Main')}>
+        <TouchableOpacity style={styles.btn} onPress={handleLogin}>
           <Text style={styles.btnText}>
             Login <Icon name="caret-forward" color="#000" />
           </Text>
+          {isLoading && (
+            <ActivityIndicator
+              size="small"
+              color="#000"
+              style={{marginRight: 5}}
+            />
+          )}
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -181,6 +227,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     width: 150,
     borderRadius: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    gap: 10,
   },
   btnText: {
     color: '#000',

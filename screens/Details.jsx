@@ -10,12 +10,9 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StatusBarHeader from '../components/StatusBar';
-
-const height = Dimensions.get('window').height;
 
 const Details = ({navigation}) => {
   return (
