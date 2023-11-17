@@ -3,6 +3,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   Age,
+  Appointment,
   Category,
   Details,
   ForgotPassword,
@@ -55,6 +56,7 @@ const AppStack = () => {
       <Stack.Screen name="Subscribe" component={Subscribe} />
       <Stack.Screen name="Trainers" component={Trainers} />
       <Stack.Screen name="TrainerDetails" component={TrainerDetails} />
+      <Stack.Screen name="Appointment" component={Appointment} />
     </Stack.Navigator>
   );
 };

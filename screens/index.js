@@ -21,9 +21,11 @@ import Category from './Category';
 import Subscribe from './Subscribe';
 import Trainers from './Trainers';
 import TrainerDetails from './TrainerDetails';
+import Appointment from './Appointment';
 
 export {
   TrainerDetails,
+  Appointment,
   Trainers,
   Subscribe,
   Category,
