@@ -85,7 +85,7 @@ const Subscribe = ({navigation}) => {
             </View>
           </View>
           <View>
-            <Text style={{color: '#fff', fontSize: 20}}>$19.99/y</Text>
+            <Text style={{color: '#fff', fontSize: 20}}>$19.99/m</Text>
           </View>
         </View>
         <View

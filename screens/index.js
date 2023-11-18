@@ -22,8 +22,10 @@ import Subscribe from './Subscribe';
 import Trainers from './Trainers';
 import TrainerDetails from './TrainerDetails';
 import Appointment from './Appointment';
+import Payment from './Payment';
 
 export {
+  Payment,
   TrainerDetails,
   Appointment,
   Trainers,

@@ -9,16 +9,12 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
   Dimensions,
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StatusBarHeader from '../components/StatusBar';
-import {Modal, Portal} from 'react-native-paper';
-import {useState} from 'react';
 
-const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 const Appointment = ({navigation}) => {
@@ -28,7 +24,7 @@ const Appointment = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           gap: 30,
           alignItems: 'center',
         }}>
@@ -59,9 +55,7 @@ const Appointment = ({navigation}) => {
         </Text>
       </View>
       <View style={{paddingVertical: 20}}>
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => navigation.navigate('TrainerDetails')}>
+        <View style={styles.card}>
           <View
             style={{
               flexDirection: 'row',
@@ -102,8 +96,13 @@ const Appointment = ({navigation}) => {
               </Text>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
+      <TouchableOpacity
+        style={styles.btnWork}
+        onPress={() => navigation.navigate('Payment')}>
+        <Text style={styles.btnText}>Next</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -125,5 +124,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,
+  },
+  btnWork: {
+    backgroundColor: '#D0FD3E',
+    zIndex: 10,
+    borderRadius: 30,
+    bottom: 0,
+    padding: 15,
+  },
+  btnText: {
+    color: '#000',
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: '600',
   },
 });

@@ -28,7 +28,7 @@ const Trainers = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           gap: 30,
           alignItems: 'center',
         }}>

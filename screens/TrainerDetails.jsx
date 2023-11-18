@@ -20,7 +20,7 @@ const width = Dimensions.get('window').width;
 
 const TrainerDetails = ({navigation}) => {
   return (
-    <ScrollView>
+    <ScrollView horizontal={false}>
       <StatusBarHeader />
       <ImageBackground
         source={require('../assets/bg17.png')}
@@ -165,98 +165,96 @@ const TrainerDetails = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.reviews}
-            style={{minWidth: Dimensions.get('window').width}}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.reviews}>
+          <TouchableOpacity
+            style={{
+              padding: 20,
+              width: 330,
+              backgroundColor: '#2C2C2E',
+              borderRadius: 20,
+            }}>
             <View
               style={{
-                backgroundColor: '#2C2C2E',
-                padding: 10,
-                borderRadius: 10,
-                marginRight: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 10,
               }}>
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
                   gap: 10,
                 }}>
-                <View
+                <Image source={require('../assets/r1.png')} />
+                <Text style={{color: '#fff', fontSize: 15}}>Sharon Jem</Text>
+                <Text
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    gap: 10,
+                    paddingHorizontal: 6,
+                    backgroundColor: '#D0FD3E',
+                    color: '#000',
+                    borderRadius: 3,
+                    fontWeight: '600',
                   }}>
-                  <Image source={require('../assets/r1.png')} />
-                  <Text style={{color: '#fff', fontSize: 15}}>Sharon Jem</Text>
-                  <Text
-                    style={{
-                      paddingHorizontal: 6,
-                      backgroundColor: '#D0FD3E',
-                      color: '#000',
-                      borderRadius: 3,
-                      fontWeight: '600',
-                    }}>
-                    4.8
-                  </Text>
-                </View>
-                <Text style={{color: '#fff', fontSize: 11}}>2d ago</Text>
+                  4.8
+                </Text>
               </View>
-              <Text style={{color: '#fff', fontSize: 13, marginTop: 20}}>
-                Had such an amazing session with Maria. She instantly picked up
-                on the level of my fitness and adjusted the workout to suit me
-                whilst also pushing me to my limits.
-              </Text>
+              <Text style={{color: '#fff', fontSize: 11}}>2d ago</Text>
             </View>
+            <Text style={{color: '#fff', fontSize: 13, marginTop: 20}}>
+              Had such an amazing session with Maria. She instantly picked up on
+              the level of my fitness and adjusted the workout to suit me whilst
+              also pushing me to my limits.
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              padding: 20,
+              width: 330,
+              marginLeft: 20,
+              backgroundColor: '#2C2C2E',
+              borderRadius: 20,
+            }}>
             <View
               style={{
-                backgroundColor: '#2C2C2E',
-                padding: 10,
-                borderRadius: 10,
-                width: width,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 10,
               }}>
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  justifyContent: 'flex-start',
                   alignItems: 'center',
                   gap: 10,
                 }}>
-                <View
+                <Image source={require('../assets/r1.png')} />
+                <Text style={{color: '#fff', fontSize: 15}}>Sharon Jem</Text>
+                <Text
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    gap: 10,
+                    paddingHorizontal: 6,
+                    backgroundColor: '#D0FD3E',
+                    color: '#000',
+                    borderRadius: 3,
+                    fontWeight: '600',
                   }}>
-                  <Image source={require('../assets/r1.png')} />
-                  <Text style={{color: '#fff', fontSize: 15}}>Sharon Jem</Text>
-                  <Text
-                    style={{
-                      paddingHorizontal: 6,
-                      backgroundColor: '#D0FD3E',
-                      color: '#000',
-                      borderRadius: 3,
-                      fontWeight: '600',
-                    }}>
-                    4.8
-                  </Text>
-                </View>
-                <Text style={{color: '#fff', fontSize: 11}}>2d ago</Text>
+                  4.8
+                </Text>
               </View>
-              <Text style={{color: '#fff', fontSize: 13, marginTop: 20}}>
-                Had such an amazing session with Maria. She instantly picked up
-                on the level of my fitness and adjusted the workout to suit me
-                whilst also pushing me to my limits.
-              </Text>
+              <Text style={{color: '#fff', fontSize: 11}}>2d ago</Text>
             </View>
-          </ScrollView>
-        </View>
+            <Text style={{color: '#fff', fontSize: 13, marginTop: 20}}>
+              Had such an amazing session with Maria. She instantly picked up on
+              the level of my fitness and adjusted the workout to suit me whilst
+              also pushing me to my limits.
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
         <TouchableOpacity
           style={styles.btnWork}
           onPress={() => navigation.navigate('Appointment')}>
@@ -281,6 +279,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     marginTop: -40,
+    paddingBottom: 50,
   },
   day: {
     color: '#fff',
@@ -336,7 +335,7 @@ const styles = StyleSheet.create({
   reviews: {
     marginTop: 15,
     borderRadius: 10,
-    width: 330,
+    width: width - 60,
     height: 150,
     marginBottom: 15,
     marginRight: 10,

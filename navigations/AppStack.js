@@ -17,6 +17,7 @@ import {
   OnboardingFour,
   OnboardingThree,
   OnboardingTwo,
+  Payment,
   Profile,
   Register,
   Subscribe,
@@ -57,6 +58,7 @@ const AppStack = () => {
       <Stack.Screen name="Trainers" component={Trainers} />
       <Stack.Screen name="TrainerDetails" component={TrainerDetails} />
       <Stack.Screen name="Appointment" component={Appointment} />
+      <Stack.Screen name="Payment" component={Payment} />
     </Stack.Navigator>
   );
 };
