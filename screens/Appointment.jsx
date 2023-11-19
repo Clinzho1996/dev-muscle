@@ -14,10 +14,28 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StatusBarHeader from '../components/StatusBar';
+import {DatePickerInput, TimePicker} from 'react-native-paper-dates';
+import {useState, useCallback} from 'react';
 
 const width = Dimensions.get('window').width;
 
 const Appointment = ({navigation}) => {
+  const [time, setTime] = useState(undefined);
+  const [inputDate, setInputDate] = useState(undefined);
+
+  const [visible, setVisible] = useState(false);
+  const onDismiss = useCallback(() => {
+    setVisible(false);
+  }, [setVisible]);
+
+  const onConfirm = useCallback(
+    ({hours, minutes}) => {
+      setVisible(false);
+      console.log({hours, minutes});
+    },
+    [setVisible],
+  );
+
   return (
     <ScrollView style={styles.container}>
       <StatusBarHeader />
@@ -98,6 +116,42 @@ const Appointment = ({navigation}) => {
           </View>
         </View>
       </View>
+      <View>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 11,
+            fontWeight: '400',
+            marginBottom: 20,
+          }}>
+          Select Appointment Date
+        </Text>
+        <DatePickerInput
+          label="Pick Date"
+          value={inputDate}
+          onChange={d => setInputDate(d)}
+          inputMode="start"
+        />
+      </View>
+      <View style={{marginTop: 20}}>
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 11,
+            fontWeight: '400',
+            marginBottom: 20,
+          }}>
+          Select Appointment Time
+        </Text>
+        <TimePicker
+          visible={visible}
+          onDismiss={onDismiss}
+          onConfirm={onConfirm}
+          hours={12}
+          minutes={14}
+          onChange={setTime}
+        />
+      </View>
       <TouchableOpacity
         style={styles.btnWork}
         onPress={() => navigation.navigate('Payment')}>
@@ -131,6 +185,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     bottom: 0,
     padding: 15,
+    marginTop: 200,
   },
   btnText: {
     color: '#000',

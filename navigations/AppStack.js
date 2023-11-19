@@ -2,6 +2,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {createStackNavigator} from '@react-navigation/stack';
 import {
+  Account,
+  AddCard,
   Age,
   Appointment,
   Category,
@@ -13,16 +15,21 @@ import {
   Level,
   Login,
   Main,
+  Notifications,
   Onboarding,
   OnboardingFour,
   OnboardingThree,
   OnboardingTwo,
+  Password,
   Payment,
+  PaymentSuccess,
   Profile,
   Register,
+  Settings,
   Subscribe,
   TrainerDetails,
   Trainers,
+  Video,
   Weight,
   Welcome,
 } from '../screens';
@@ -59,6 +66,13 @@ const AppStack = () => {
       <Stack.Screen name="TrainerDetails" component={TrainerDetails} />
       <Stack.Screen name="Appointment" component={Appointment} />
       <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="AddCard" component={AddCard} />
+      <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
+      <Stack.Screen name="Video" component={Video} />
+      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="Password" component={Password} />
     </Stack.Navigator>
   );
 };

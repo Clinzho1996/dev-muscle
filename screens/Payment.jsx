@@ -68,6 +68,7 @@ const Payment = ({navigation}) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{marginTop: 15}}>
           <TouchableOpacity
+            onPress={() => navigation.navigate('AddCard')}
             style={{
               backgroundColor: '#2C2C2E',
               paddingVertical: 55,
@@ -262,7 +263,7 @@ const Payment = ({navigation}) => {
       </View>
       <TouchableOpacity
         style={styles.btnWork}
-        onPress={() => navigation.navigate('Appointment')}>
+        onPress={() => navigation.navigate('PaymentSuccess')}>
         <Text style={styles.btnText}>Confirm</Text>
       </TouchableOpacity>
     </ScrollView>

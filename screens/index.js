@@ -23,8 +23,22 @@ import Trainers from './Trainers';
 import TrainerDetails from './TrainerDetails';
 import Appointment from './Appointment';
 import Payment from './Payment';
+import AddCard from './AddCard';
+import PaymentSuccess from './PaymentSuccess';
+import Video from './Video';
+import Settings from './Settings';
+import Account from './Account';
+import Notifications from './Notifications';
+import Password from './Password';
 
 export {
+  Notifications,
+  Password,
+  Settings,
+  Account,
+  Video,
+  PaymentSuccess,
+  AddCard,
   Payment,
   TrainerDetails,
   Appointment,

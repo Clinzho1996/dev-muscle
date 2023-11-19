@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import {
   Dimensions,
@@ -10,19 +11,140 @@ import {
   ScrollView,
   ImageBackground,
   TouchableOpacity,
+  RefreshControl,
+  Alert,
 } from 'react-native';
 import StatusBarHeader from '../components/StatusBar';
+import {useCallback, useEffect, useState} from 'react';
+import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const Home = ({navigation}) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Initialize loading state
+  const [userData, setUserData] = useState(null); // Initialize user data state
+
+  useEffect(() => {
+    checkAndShowBiometricPrompt();
+  }, []);
+
+  const checkAndShowBiometricPrompt = async () => {
+    const rnBiometrics = new ReactNativeBiometrics();
+    const biometricEnabled = await AsyncStorage.getItem('biometricEnabled');
+
+    if (biometricEnabled === 'true') {
+      rnBiometrics.isSensorAvailable().then(resultObject => {
+        const {available, biometryType} = resultObject;
+
+        if (available && biometryType === BiometryTypes.TouchID) {
+          console.log('TouchID is supported');
+          handleBiometricLogin();
+        } else if (available && biometryType === BiometryTypes.FaceID) {
+          console.log('FaceID is supported');
+          handleBiometricLogin();
+        } else if (available && biometryType === BiometryTypes.Biometrics) {
+          console.log('Biometrics is supported');
+          handleBiometricLogin();
+        } else {
+          console.log('Biometrics not supported');
+        }
+      });
+    }
+  };
+
+  const handleBiometricLogin = async () => {
+    const rnBiometrics = new ReactNativeBiometrics();
+
+    const authenticateWithBiometrics = () => {
+      rnBiometrics
+        .simplePrompt({promptMessage: 'Confirm fingerprint'})
+        .then(resultObject => {
+          const {success} = resultObject;
+
+          if (success) {
+            console.log('Successful biometrics provided');
+            // Proceed with allowing access to the home page
+          } else {
+            console.log('User cancelled biometric prompt');
+            // Display an alert to the user
+            Alert.alert(
+              'Biometric Authentication',
+              'Biometric authentication is required to access KudiTrak.',
+              [{text: 'Retry', onPress: authenticateWithBiometrics}],
+            );
+          }
+        })
+        .catch(() => {
+          console.log('Biometrics failed');
+          // Handle the case where biometric authentication failed, e.g., show an error message
+          // and prevent access to the home page
+        });
+    };
+
+    authenticateWithBiometrics();
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    const token = await AsyncStorage.getItem('userToken');
+    setIsLoading(true); // Set loading state to true while fetching
+
+    axios
+      .get(`https://spendtrack.wtglaundrymanagement.com/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        // Handle the successful response here
+        console.log('User Profile:', response.data);
+        setUserData(response.data); // Set user data in state
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the request
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading state to false when request completes
+      });
+  };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       <StatusBarHeader />
       <View style={styles.greeting}>
-        <Text style={styles.name}>Hello Clinton,</Text>
-        <Text style={styles.subgreet}>Good morning</Text>
+        {isLoading ? (
+          <Text
+            style={{
+              color: '#fff',
+              textTransform: 'capitalize',
+            }}>
+            Loading...
+          </Text>
+        ) : (
+          <Text style={styles.name}>
+            Hello {userData && userData.profile.name},
+          </Text>
+        )}
+        <Text style={styles.subgreet}>Welcome back</Text>
       </View>
       <View>
         <View style={styles.work}>
@@ -185,7 +307,7 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   name: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#fff',
     fontFamily: 'integralcf-bold',
   },
